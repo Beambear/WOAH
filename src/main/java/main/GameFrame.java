@@ -35,8 +35,6 @@ public class GameFrame extends Frame {
         new run().start();
     }
 
-
-
     public void initGame(){
         gameBackGround = new GameBackGround();
         player = new Player();
