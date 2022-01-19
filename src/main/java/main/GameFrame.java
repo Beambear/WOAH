@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 public class GameFrame extends Frame {
 
     private GameBackGround gameBackGround;
-
+    private Player player;
     public GameFrame(){
         //window visiable
         setVisible(true);
@@ -39,6 +39,7 @@ public class GameFrame extends Frame {
 
     public void initGame(){
         gameBackGround = new GameBackGround();
+        player = new Player();
     }
 
     class run extends Thread{
@@ -56,5 +57,6 @@ public class GameFrame extends Frame {
     @Override
     public void update(Graphics g) {
         gameBackGround.paint(g);
+        player.paint(g);
     }
 }
