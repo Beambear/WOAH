@@ -13,6 +13,7 @@ public class Player extends AirCraft {
     private boolean down;
     private boolean left;
     private boolean right;
+
     int ultSpellCount;
     int score;
     int fuel;
@@ -25,24 +26,49 @@ public class Player extends AirCraft {
     //player status
 
     //Player movement control
+    private void boundaryCheck(){
+        if(playerLocationY<50){
+            playerLocationY=50;
+        }
+        if(playerLocationY>Constant.GROUND_HEIGHT){
+            playerLocationY=Constant.GROUND_HEIGHT;
+        }
+        if(playerLocationX>Constant.FRAM_WIDTH){
+            playerLocationX=Constant.FRAM_WIDTH;
+        }
+        if(playerLocationX<-20){
+            playerLocationX=-20;
+        }
+    }
     public void flyLogic(){
-        if(up==true){
+        if(up&&!down&&!left&&!right){       //up
             playerLocationY-=speedPlayer;
-            if(playerLocationY<50){
-                playerLocationY=50;
-            }
-        }else if(down == true){
+            boundaryCheck();
+        }else if(!up&&down&&!left&&!right){ //down
             playerLocationY+=speedPlayer;
-            if(playerLocationY>Constant.GROUND_HEIGHT){
-                playerLocationY=Constant.GROUND_HEIGHT;
-            }
-        }else if(left == true){
+            boundaryCheck();
+        }else if(!up&&!down&&left&&!right){ //left
             playerLocationX-=speedPlayer;
-        }else if(right == true){
+            boundaryCheck();
+        }else if(!up&&!down&&!left&&right){ //right
             playerLocationX+=speedPlayer;
-            if(playerLocationX>Constant.FRAM_WIDTH){
-                playerLocationX=Constant.FRAM_WIDTH;
-            }
+            boundaryCheck();
+        }else if(up&&!down&&!left&&right){  //up & right
+            playerLocationX+=speedPlayer;
+            playerLocationY-=speedPlayer;
+            boundaryCheck();
+        }else if(up&&!down&&left&&!right){ //up & left
+            playerLocationX-=speedPlayer;
+            playerLocationY-=speedPlayer;
+            boundaryCheck();
+        }else if(!up&&down&&!left&&right){ //down & right
+            playerLocationX+=speedPlayer;
+            playerLocationY+=speedPlayer;
+            boundaryCheck();
+        }else if(!up&&down&&left&&!right){ //down & left
+            playerLocationX-=speedPlayer;
+            playerLocationY+=speedPlayer;
+            boundaryCheck();
         }
     }
 

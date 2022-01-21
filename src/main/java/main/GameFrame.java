@@ -84,11 +84,11 @@ public class GameFrame extends Frame {
     public void pressKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-//                System.out.println("up is pressed");
+                System.out.println("up is pressed");
                 player.flyControl(1);
                 break;
             case KeyEvent.VK_DOWN:
-//                System.out.println("right is pressed");
+                System.out.println("right is pressed");
                 player.flyControl(2);
                 break;
             case KeyEvent.VK_LEFT:
