@@ -17,6 +17,7 @@ public class Constant {
 
     //inGame key data
     public static final int GROUND_HEIGHT=620;
+    public static final int CEILING_HEIGHT=-20;
 
     //inGame background color
     public static final Color BG_COLOR = new Color(0x85DF);

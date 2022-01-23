@@ -7,11 +7,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameFrontGround {
     //Stage number
     private static final int STAGE_COUNT = 1;
-    private static final int STAGE_CEILING_COUNT =3;
+    private static final int STAGE_CEILING_COUNT =2;
     //container for ceiling
     private List<FrontGroundStageCeiling> stageCeilingList;
     //stage rolling speed
@@ -32,8 +33,32 @@ public class GameFrontGround {
     //
     public void paint(Graphics g){
         //draw stage ceiling
-        FrontGroundStageCeiling stageCeiling = new FrontGroundStageCeiling(ceilingImages[0],STAGE_SPEED,Constant.FRAM_WIDTH,0);
-        stageCeilingList.add(stageCeiling);
-        stageCeilingList.get(0).paint(g);
+        logic(g);
+        for(int i=0; i<stageCeilingList.size();i++){
+            stageCeilingList.get(i).paint(g);
+        }
+    }
+
+    //the logic to create new ceiling
+    private void logic(Graphics g){
+        Random random = new Random();
+        if(stageCeilingList.size() != 0){
+            for(int i=0; i< stageCeilingList.size();i++){
+                if(stageCeilingList.get(i).getX() == 800){
+                    FrontGroundStageCeiling ceilingNew = new FrontGroundStageCeiling(ceilingImages[random.nextInt(STAGE_CEILING_COUNT)],STAGE_SPEED,Constant.FRAM_WIDTH, Constant.CEILING_HEIGHT);
+                    stageCeilingList.add(ceilingNew);
+                }
+            }
+        }else{
+            FrontGroundStageCeiling stageCeiling = new FrontGroundStageCeiling(ceilingImages[random.nextInt(STAGE_CEILING_COUNT)],STAGE_SPEED,Constant.FRAM_WIDTH,Constant.CEILING_HEIGHT);
+            stageCeilingList.add(stageCeiling);
+            stageCeilingList.get(0).paint(g);
+        }
+
+        FrontGroundStageCeiling oldestCeiling = new FrontGroundStageCeiling();
+        oldestCeiling = stageCeilingList.get(0);
+        if(oldestCeiling.isOutWindow()==true){
+            stageCeilingList.remove(0);
+        }
     }
 }
