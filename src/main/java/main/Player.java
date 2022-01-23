@@ -75,7 +75,6 @@ public class Player extends AirCraft {
     public void flyControl(int moveDirection){
         switch(moveDirection){
             case 1:
-//                System.out.println("moving up");
                 up=true;
                 break;
             case 2:

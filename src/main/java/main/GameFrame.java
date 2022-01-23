@@ -7,12 +7,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
 
 public class GameFrame extends Frame {
 
     private GameBackGround gameBackGround;
     private Player player;
+    private GameFrontGround gameFrontGround;
     public GameFrame(){
         //window visibility
         setVisible(true);
@@ -58,6 +60,7 @@ public class GameFrame extends Frame {
     public void initGame(){
         gameBackGround = new GameBackGround();
         player = new Player();
+        gameFrontGround = new GameFrontGround();
     }
 
     class run extends Thread{
@@ -76,19 +79,21 @@ public class GameFrame extends Frame {
 
     @Override
     public void update(Graphics g) {
-        gameBackGround.paint(g);
-        player.paint(g);
+        BufferedImage currImage = new BufferedImage(FRAM_WIDTH,FRAM_HEIGHT,BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics graphics = currImage.getGraphics();
+        gameBackGround.paint(graphics);
+        player.paint(graphics);
+        gameFrontGround.paint(graphics);
+        g.drawImage(currImage,0,0,null);
     }
 
     //press key reactions
     public void pressKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-                System.out.println("up is pressed");
                 player.flyControl(1);
                 break;
             case KeyEvent.VK_DOWN:
-                System.out.println("right is pressed");
                 player.flyControl(2);
                 break;
             case KeyEvent.VK_LEFT:
@@ -104,11 +109,9 @@ public class GameFrame extends Frame {
     public void releaseKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-//                System.out.println("up is released");
                 player.flyControl(5);
                 break;
             case KeyEvent.VK_DOWN:
-//                System.out.println("right is released");
                 player.flyControl(6);
                 break;
             case KeyEvent.VK_LEFT:

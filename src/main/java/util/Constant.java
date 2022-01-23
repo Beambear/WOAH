@@ -22,7 +22,9 @@ public class Constant {
     public static final Color BG_COLOR = new Color(0x85DF);
 
     //art resources path
-    public static final String BG_BOUNDARY_BOT = "artResources/environment/Obj_acc1.img.lv200.archer.2.0.png";
-    public static final String BG_STAGE1 = "artResources/environment/Obj_acc1.img.lv200.archer.0.0.png";
+    public static final String BG_STAGE_FLOOR_01 = "artResources/environment/background_ground_stage_01.png";
+    public static final String BG_STAGE_CEILING_01_01 = "artResources/environment/background_ceiling_stage_01_1.png";
+    public static final String BG_STAGE_CEILING_01_02 = "artResources/environment/background_ceiling_stage_01_2.png";
+    public static final String BG_STAGE_CEILING_01_03 = "artResources/environment/background_ceiling_stage_01_3.png";
     public static final String aircraftPlayerDef = "artResources/aircraft/player_aircraft_default.gif";
 }
