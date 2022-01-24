@@ -7,13 +7,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameBackGround {
     //Stage number
     private static final int STAGE_COUNT = 1;
     private static final int STAGE_FLOOR_COUNT = 1;
     //container for floor
-    private List<BackGroundStageFloor> stageFloorList;
+    private List<StageFloor> stageFloorList;
     //stage rolling speed
     private static final int STAGE_SPEED = 4;
     //Stage Floor images
@@ -37,9 +38,36 @@ public class GameBackGround {
         g.setColor(Color.black);
 
         //draw stage floor
-        BackGroundStageFloor stageFloor = new BackGroundStageFloor(floorImages[0],STAGE_SPEED,Constant.FRAM_WIDTH,Constant.GROUND_HEIGHT);
-        stageFloorList.add(stageFloor);
-        stageFloorList.get(0).paint(g);
+        logic();
+        for(int i=0; i<stageFloorList.size();i++){
+            stageFloorList.get(i).paint(g);
+        }
+//        BackGroundStageFloor stageFloor = new BackGroundStageFloor(floorImages[0],STAGE_SPEED,Constant.FRAM_WIDTH,Constant.GROUND_HEIGHT);
+//        stageFloorList.add(stageFloor);
+//        stageFloorList.get(0).paint(g);
+    }
+
+    //the logic to create new floor
+    private void logic(){
+        Random random = new Random();
+        if(stageFloorList.size() != 0){
+            for(int i=0; i< stageFloorList.size();i++){
+                if(stageFloorList.get(i).getX() == 400){
+                    StageFloor floorNew = new StageFloor(floorImages[STAGE_COUNT-1],STAGE_SPEED,Constant.FRAM_WIDTH, Constant.GROUND_HEIGHT);
+                    stageFloorList.add(floorNew);
+                }
+            }
+        }else{
+            for(int i=0; i<3;i++){
+                StageFloor stageFloor = new StageFloor(floorImages[STAGE_COUNT-1],STAGE_SPEED,500*i,Constant.GROUND_HEIGHT);
+                stageFloorList.add(stageFloor);
+            }
+        }
+        StageFloor oldestFloor = new StageFloor();
+        oldestFloor = stageFloorList.get(0);
+        if(oldestFloor.isOutWindow()==true){
+            stageFloorList.remove(0);
+        }
     }
 
 //    public void paintMenu(Graphics g){

@@ -14,7 +14,7 @@ public class GameFrontGround {
     private static final int STAGE_COUNT = 1;
     private static final int STAGE_CEILING_COUNT =2;
     //container for ceiling
-    private List<FrontGroundStageCeiling> stageCeilingList;
+    private List<StageCeiling> stageCeilingList;
     //stage rolling speed
     private static final int STAGE_SPEED = 4;
     //Stage ceiling images
@@ -33,29 +33,29 @@ public class GameFrontGround {
     //
     public void paint(Graphics g){
         //draw stage ceiling
-        logic(g);
+        logic();
         for(int i=0; i<stageCeilingList.size();i++){
             stageCeilingList.get(i).paint(g);
         }
     }
 
     //the logic to create new ceiling
-    private void logic(Graphics g){
+    private void logic(){
         Random random = new Random();
         if(stageCeilingList.size() != 0){
             for(int i=0; i< stageCeilingList.size();i++){
-                if(stageCeilingList.get(i).getX() == 800){
-                    FrontGroundStageCeiling ceilingNew = new FrontGroundStageCeiling(ceilingImages[random.nextInt(STAGE_CEILING_COUNT)],STAGE_SPEED,Constant.FRAM_WIDTH, Constant.CEILING_HEIGHT);
+                if(stageCeilingList.get(i).getX() == 400){
+                    StageCeiling ceilingNew = new StageCeiling(ceilingImages[random.nextInt(STAGE_CEILING_COUNT)],STAGE_SPEED,Constant.FRAM_WIDTH, Constant.CEILING_HEIGHT);
                     stageCeilingList.add(ceilingNew);
                 }
             }
         }else{
-            FrontGroundStageCeiling stageCeiling = new FrontGroundStageCeiling(ceilingImages[random.nextInt(STAGE_CEILING_COUNT)],STAGE_SPEED,Constant.FRAM_WIDTH,Constant.CEILING_HEIGHT);
-            stageCeilingList.add(stageCeiling);
-            stageCeilingList.get(0).paint(g);
+            for(int i=0; i<3;i++){
+                StageCeiling stageCeiling = new StageCeiling(ceilingImages[random.nextInt(STAGE_CEILING_COUNT)],STAGE_SPEED,500*i,Constant.CEILING_HEIGHT);
+                stageCeilingList.add(stageCeiling);
+            }
         }
-
-        FrontGroundStageCeiling oldestCeiling = new FrontGroundStageCeiling();
+        StageCeiling oldestCeiling = new StageCeiling();
         oldestCeiling = stageCeilingList.get(0);
         if(oldestCeiling.isOutWindow()==true){
             stageCeilingList.remove(0);

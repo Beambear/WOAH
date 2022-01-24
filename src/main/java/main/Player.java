@@ -13,7 +13,8 @@ public class Player extends AirCraft {
     private boolean down;
     private boolean left;
     private boolean right;
-
+    //initial move speed
+    private int speedPlayer = 5;
     int ultSpellCount;
     int score;
     int fuel;
@@ -100,9 +101,6 @@ public class Player extends AirCraft {
                 break;
         }
     }
-
-    //initial move speed
-    private int speedPlayer = 4;
 
     //initialize player aircraft
     public Player(){
