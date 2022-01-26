@@ -1,5 +1,7 @@
 package main;
 
+import util.GameUtil;
+
 import static util.Constant.*;
 
 import java.awt.*;
@@ -66,6 +68,8 @@ public class GameFrame extends Frame {
     class run extends Thread{
         @Override
         public void run() {
+            player.fuelCosting();
+            GameUtil.autoSave(player);
             while(true){
                 repaint();
                 try{
@@ -122,4 +126,5 @@ public class GameFrame extends Frame {
                 break;
         }
     }
+
 }

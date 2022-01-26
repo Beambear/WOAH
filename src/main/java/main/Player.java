@@ -11,13 +11,22 @@ public class Player extends AirCraft {
     int playerLocationY=400;
     private boolean up;
     private boolean down;
+
+    public int getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(int fuel) {
+        this.fuel = fuel;
+    }
+
     private boolean left;
     private boolean right;
     //initial move speed
     private int speedPlayer = 5;
     int ultSpellCount;
     int score;
-    int fuel;
+    private int fuel;
 //    Weapon mainWeapon;
 //    Weapon autoSupportWeapon
 
@@ -109,6 +118,7 @@ public class Player extends AirCraft {
         left=false;
         right=false;
         aircraftPlayerImage = GameUtil.loadBufferedImage(Constant.aircraftPlayerDef);
+        fuel = 100;
     }
 //
 
@@ -118,4 +128,27 @@ public class Player extends AirCraft {
         g.drawImage(aircraftPlayerImage,playerLocationX,playerLocationY,null);
     }
 
+    //crease fuel point continuously
+    public  void fuelCosting() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    // 每隔3秒执行一次
+                    Thread.sleep(3000);
+                    fuel -=1;
+                    System.out.println("Current fuel: "+fuel);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //check if player is out of fuel (die)
+    public boolean isNoFuel(){
+        if(fuel == 0){
+            return true;
+        }
+        return false;
+    }
 }
