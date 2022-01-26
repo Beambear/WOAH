@@ -17,7 +17,7 @@ public class GameFrame extends Frame {
     private GameBackGround gameBackGround;
     private Player player;
     private GameFrontGround gameFrontGround;
-    public GameFrame(){
+    public GameFrame(String isLoad){
         //window visibility
         setVisible(true);
         //window size
@@ -36,7 +36,11 @@ public class GameFrame extends Frame {
             }
         });
 
-        initGame();
+        switch(isLoad){
+            case "new": initGame();
+            break;
+            case "load": loadGame();
+        }
 
         new run().start();
 
@@ -62,6 +66,12 @@ public class GameFrame extends Frame {
     public void initGame(){
         gameBackGround = new GameBackGround();
         player = new Player();
+        gameFrontGround = new GameFrontGround();
+    }
+
+    public void loadGame(){
+        gameBackGround = new GameBackGround();
+        player = GameUtil.loadGame();
         gameFrontGround = new GameFrontGround();
     }
 

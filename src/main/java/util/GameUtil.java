@@ -4,6 +4,9 @@ import main.Player;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class GameUtil {
     //load image
@@ -52,4 +55,20 @@ public class GameUtil {
             e.printStackTrace();
         }
     }
-}
+
+    private static String[] userData;
+    public static Player loadGame(){
+        Player playerLoad = new Player();
+        String filePath = ("user_saved_Data.txt");
+        Path myPath = Paths.get(filePath);
+        try {
+            String dataRead = Files.readString(myPath);	//read data from file path
+            userData = dataRead.split(" ");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        playerLoad.setFuel(Integer.parseInt(userData[0]));
+        return playerLoad;
+        }
+    }
