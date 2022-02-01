@@ -1,5 +1,15 @@
 package main;
-
+//------------------------------------------------------------------------
+//	Author: Jipeng Liu
+//
+//
+// 	Class: Player
+// 	Description:
+//		This class is an object class.
+//      Player is a child class of Aircraft
+//      Contains 10 attributes
+//      Contains methods for player control system and abilities.
+//
 import util.Constant;
 import util.GameUtil;
 
@@ -12,21 +22,10 @@ public class Player extends AirCraft {
     private boolean up;
     private boolean down;
 
-    public int getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(int fuel) {
-        this.fuel = fuel;
-    }
-
     private boolean left;
     private boolean right;
-    //initial move speed
-    private int speedPlayer = 5;
     int ultSpellCount;
     int score;
-    private int fuel;
 //    Weapon mainWeapon;
 //    Weapon autoSupportWeapon
 
@@ -35,7 +34,11 @@ public class Player extends AirCraft {
 
     //player status
 
-    //Player movement control
+//////////////////////////////////////////////////////////
+//	Void method to keep player aircraft stay in frame   //
+//	Input	: None										//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     private void boundaryCheck(){
         if(playerLocationY<50){
             playerLocationY=50;
@@ -50,38 +53,49 @@ public class Player extends AirCraft {
             playerLocationX=-20;
         }
     }
+
+//////////////////////////////////////////////////////////
+//	Void method to control player aircraft movement     //
+//	Input	: None										//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void flyLogic(){
         if(up&&!down&&!left&&!right){       //up
-            playerLocationY-=speedPlayer;
+            playerLocationY-=super.getMoveSpeed();
             boundaryCheck();
         }else if(!up&&down&&!left&&!right){ //down
-            playerLocationY+=speedPlayer;
+            playerLocationY+=super.getMoveSpeed();
             boundaryCheck();
         }else if(!up&&!down&&left&&!right){ //left
-            playerLocationX-=speedPlayer;
+            playerLocationX-=super.getMoveSpeed();
             boundaryCheck();
         }else if(!up&&!down&&!left&&right){ //right
-            playerLocationX+=speedPlayer;
+            playerLocationX+=super.getMoveSpeed();
             boundaryCheck();
         }else if(up&&!down&&!left&&right){  //up & right
-            playerLocationX+=speedPlayer;
-            playerLocationY-=speedPlayer;
+            playerLocationX+=super.getMoveSpeed();
+            playerLocationY-=super.getMoveSpeed();
             boundaryCheck();
         }else if(up&&!down&&left&&!right){ //up & left
-            playerLocationX-=speedPlayer;
-            playerLocationY-=speedPlayer;
+            playerLocationX-=super.getMoveSpeed();
+            playerLocationY-=super.getMoveSpeed();
             boundaryCheck();
         }else if(!up&&down&&!left&&right){ //down & right
-            playerLocationX+=speedPlayer;
-            playerLocationY+=speedPlayer;
+            playerLocationX+=super.getMoveSpeed();
+            playerLocationY+=super.getMoveSpeed();
             boundaryCheck();
         }else if(!up&&down&&left&&!right){ //down & left
-            playerLocationX-=speedPlayer;
-            playerLocationY+=speedPlayer;
+            playerLocationX-=super.getMoveSpeed();
+            playerLocationY+=super.getMoveSpeed();
             boundaryCheck();
         }
     }
 
+//////////////////////////////////////////////////////////
+//	Void method to set the movement directions          //
+//	Input	: moveDirection								//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void flyControl(int moveDirection){
         switch(moveDirection){
             case 1:
@@ -111,32 +125,45 @@ public class Player extends AirCraft {
         }
     }
 
-    //initialize player aircraft
+
+//////////////////////////////////////////////////////////
+//	Constructor to initialize player aircraft           //
+//	Input	: None							        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public Player(){
         up=false;
         down=false;
         left=false;
         right=false;
         aircraftPlayerImage = GameUtil.loadBufferedImage(Constant.aircraftPlayerDef);
-        fuel = 100;
+        super.setFuel(100);     //initial fuel point = 100;
+        super.setMoveSpeed(5);  //default move speed = 5;
     }
-//
 
-    //Control aircraft
+
+//////////////////////////////////////////////////////////
+//	void method to draw player aircraft image           //
+//	Input	: Graphics      				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void paint(Graphics g){
         flyLogic();
         g.drawImage(aircraftPlayerImage,playerLocationX,playerLocationY,null);
     }
 
-    //crease fuel point continuously
+//////////////////////////////////////////////////////////
+//	void method to decrease fuel point continuously     //
+//	Input	: None           				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public  void fuelCosting() {
         new Thread(() -> {
             while (true) {
                 try {
-                    // 每隔3秒执行一次
-                    Thread.sleep(3000);
-                    fuel -=1;
-                    System.out.println("Current fuel: "+fuel);
+                    Thread.sleep(3000); //every 3 seconds
+                    super.setFuel(super.getFuel()-1);
+                    System.out.println("Current fuel: "+super.getFuel());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -144,11 +171,4 @@ public class Player extends AirCraft {
         }).start();
     }
 
-    //check if player is out of fuel (die)
-    public boolean isNoFuel(){
-        if(fuel == 0){
-            return true;
-        }
-        return false;
-    }
 }

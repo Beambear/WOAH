@@ -1,5 +1,19 @@
 package main;
-
+//------------------------------------------------------------------------
+//	Author: Jipeng Liu
+//
+//
+// 	Class: GameFrame
+// 	Description:
+//		This class is core class of this project.
+//      GameFrame is a child class of Frame
+//      1.Initialize the basic frame window of game.
+//      2.Draw every object into the game frame window.
+//      3.Initialize a new game or load a saved game.
+//      4.Have a thread to keep update game
+//      5.have a listener for keyboard inputs
+//      Contains 3 attributes
+//
 import util.GameUtil;
 
 import static util.Constant.*;
@@ -17,6 +31,13 @@ public class GameFrame extends Frame {
     private GameBackGround gameBackGround;
     private Player player;
     private GameFrontGround gameFrontGround;
+
+
+//////////////////////////////////////////////////////////
+//	Constructor to initialize the game frame            //
+//	Input	: isLoad									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public GameFrame(String isLoad){
         //window visibility
         setVisible(true);
@@ -47,10 +68,7 @@ public class GameFrame extends Frame {
         //input key listener
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {
-//                typeKey(e);
-            }
-
+            public void keyTyped(KeyEvent e) {}
             @Override
             public void keyPressed(KeyEvent e) {
                 pressKey(e);
@@ -63,18 +81,33 @@ public class GameFrame extends Frame {
         });
     }
 
+//////////////////////////////////////////////////////////
+//	void method to start a new game                     //
+//	Input	: None  									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void initGame(){
         gameBackGround = new GameBackGround();
         player = new Player();
         gameFrontGround = new GameFrontGround();
     }
 
+//////////////////////////////////////////////////////////
+//	void method to load the saved game                  //
+//	Input	: None  									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void loadGame(){
         gameBackGround = new GameBackGround();
         player = GameUtil.loadGame();
         gameFrontGround = new GameFrontGround();
     }
 
+//////////////////////////////////////////////////////////
+//	create a thread to keep updating the game           //
+//	Input	: None  									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     class run extends Thread{
         @Override
         public void run() {
@@ -91,6 +124,11 @@ public class GameFrame extends Frame {
         }
     }
 
+//////////////////////////////////////////////////////////
+//	void method to update the game status               //
+//	Input	: None  									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     @Override
     public void update(Graphics g) {
         BufferedImage currImage = new BufferedImage(FRAM_WIDTH,FRAM_HEIGHT,BufferedImage.TYPE_4BYTE_ABGR);
@@ -101,7 +139,11 @@ public class GameFrame extends Frame {
         g.drawImage(currImage,0,0,null);
     }
 
-    //press key reactions
+//////////////////////////////////////////////////////////
+//	void method to set reactions for the pressed Key    //
+//	Input	: KeyEvent 									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void pressKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
@@ -119,7 +161,11 @@ public class GameFrame extends Frame {
         }
     }
 
-    //release key reactions
+//////////////////////////////////////////////////////////
+//	void method to set reactions for the released Key   //
+//	Input	: KeyEvent 									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void releaseKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :

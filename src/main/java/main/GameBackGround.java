@@ -70,13 +70,4 @@ public class GameBackGround {
         }
     }
 
-//    public void paintMenu(Graphics g){
-//        //get bot boundary height and width
-//        int heightBotBoundary = floorImages[0].getHeight();
-//        int widthBotBoundary = floorImages[0].getWidth();
-//        int imageLoop = Constant.FRAM_WIDTH/widthBotBoundary+1;
-//        for(int i=0; i<imageLoop;i++){
-//            g.drawImage(floorImages[0], widthBotBoundary*i,Constant.GROUND_HEIGHT,null);
-//        }
-//    }
 }

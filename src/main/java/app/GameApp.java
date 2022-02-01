@@ -1,15 +1,37 @@
 package app;
-
+//------------------------------------------------------------------------
+//	Author: Jipeng Liu
+//
+//
+// 	Class: GameApp
+// 	Description:
+//		This is the main class of the whole project.
+//      It contains the main method and a method for console start menu
+//
 import main.GameFrame;
 
 import java.util.Scanner;
 
+//////////////////////////////////////////////////////////
+//	Main method                                			//
+//	Input	: None										//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
 public class GameApp {
     public static void main(String[] args){
         GameApp drive = new GameApp();
         drive.menu();
     }
 
+//////////////////////////////////////////////////////////
+//	A void method, this will initial a menu in console  //
+//  before starting the game. Player can choose         //
+//  1.start new game                                    //
+//  2.load saved game                                   //
+//  3.Exit                                              //
+//	Input	: None										//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void menu() {
         System.out.println("Welcome to <World of Aircraft Half-life!>");
 
@@ -32,13 +54,6 @@ public class GameApp {
                     System.out.println("invalid input, please try again.");
                     break;
             }
-    }
-
-    public String ezJunitTest(){
-
-        String printA= "Hello World!";
-        System.out.println(printA);
-        return printA;
     }
 }
 
