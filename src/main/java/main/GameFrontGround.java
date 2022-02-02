@@ -34,7 +34,7 @@ public class GameFrontGround {
 
 //////////////////////////////////////////////////////////
 //	Constructor to initialize frontground source        //
-//	Input	: None                 		        	//
+//	Input	: None                 		            	//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
     public GameFrontGround(){
