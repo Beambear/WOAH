@@ -6,7 +6,7 @@ package app;
 // 	Class: GameApp
 // 	Description:
 //		This is the main class of the whole project.
-//      It contains the main method and a method for console start menu
+//      Contains the main method and a method for console start menu
 //
 import main.GameFrame;
 

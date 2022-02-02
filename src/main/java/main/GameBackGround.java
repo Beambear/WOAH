@@ -1,5 +1,16 @@
 package main;
-
+//------------------------------------------------------------------------
+//	Author: Jipeng Liu
+//
+//
+// 	Class: GameBackGround
+// 	Description:
+//		Draw the background pictures out,
+//      Set attributes and rules of background.
+//      Contains 5 attributes
+//      Contains methods to set pictures image, start location, rolling speed.
+//      Contains methods to set the refresh and remove rules.
+//
 import util.Constant;
 import util.GameUtil;
 
@@ -20,7 +31,11 @@ public class GameBackGround {
     //Stage Floor images
     private BufferedImage[] floorImages;
 
-    //constructor to initialize background source
+//////////////////////////////////////////////////////////
+//	Constructor to initialize background source         //
+//	Input	: None                   		        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public GameBackGround(){
         stageFloorList = new ArrayList<>();
         floorImages = new BufferedImage[STAGE_FLOOR_COUNT];
@@ -30,7 +45,11 @@ public class GameBackGround {
         }
     }
 
-    //
+//////////////////////////////////////////////////////////
+//	void method to draw background image                //
+//	Input	: Graphics      				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void paint(Graphics g){
         //fill in background color
         g.setColor(Constant.BG_COLOR);
@@ -42,30 +61,28 @@ public class GameBackGround {
         for(int i=0; i<stageFloorList.size();i++){
             stageFloorList.get(i).paint(g);
         }
-//        BackGroundStageFloor stageFloor = new BackGroundStageFloor(floorImages[0],STAGE_SPEED,Constant.FRAM_WIDTH,Constant.GROUND_HEIGHT);
-//        stageFloorList.add(stageFloor);
-//        stageFloorList.get(0).paint(g);
     }
 
-    //the logic to create new floor
+//////////////////////////////////////////////////////////
+//	void method to set the logic to create new floor    //
+//	Input	: None            				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     private void logic(){
-        Random random = new Random();
-        if(stageFloorList.size() != 0){
+        if(stageFloorList.size() != 0){ //initial setting
             for(int i=0; i< stageFloorList.size();i++){
                 if(stageFloorList.get(i).getX() == 400){
                     StageFloor floorNew = new StageFloor(floorImages[STAGE_COUNT-1],STAGE_SPEED,Constant.FRAM_WIDTH, Constant.GROUND_HEIGHT);
                     stageFloorList.add(floorNew);
                 }
             }
-        }else{
+        }else{  //keep refresh new images
             for(int i=0; i<3;i++){
                 StageFloor stageFloor = new StageFloor(floorImages[STAGE_COUNT-1],STAGE_SPEED,500*i,Constant.GROUND_HEIGHT);
                 stageFloorList.add(stageFloor);
             }
         }
-        StageFloor oldestFloor = new StageFloor();
-        oldestFloor = stageFloorList.get(0);
-        if(oldestFloor.isOutWindow()==true){
+        if(stageFloorList.get(0).isOutWindow()==true){//remove out of screen images
             stageFloorList.remove(0);
         }
     }
