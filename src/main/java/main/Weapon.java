@@ -1,4 +1,7 @@
 package main;
+
+import java.awt.image.BufferedImage;
+
 //------------------------------------------------------------------------
 //	Author: Jipeng Liu
 //
@@ -11,11 +14,13 @@ package main;
 //      Contains getters and setters.
 //
 public class Weapon {
-    int x;  //location x
-    int y;  //location y
+    int width;
+    int height;
     int damage; //basic damage to aircraft
     int movingSpeed;    //bullet movingSpeed
     int range;  //bullet fly range
+    BufferedImage weaponImage;
+
 
 
     public int getRange() {
@@ -24,22 +29,6 @@ public class Weapon {
 
     public void setRange(int range) {
         this.range = range;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int getDamage() {

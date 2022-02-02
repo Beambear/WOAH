@@ -1,4 +1,10 @@
 package main;
+
+import util.Constant;
+import util.GameUtil;
+
+import java.awt.*;
+
 //------------------------------------------------------------------------
 //	Author: Jipeng Liu
 //
@@ -10,19 +16,21 @@ package main;
 //      Contains 4 attributes
 //      Contains getters and setters.
 //
-public class WeaponBullet extends Weapon{
+public class WeaponDefault extends Weapon{
 
 //////////////////////////////////////////////////////////
 //	Constructor to initialize WeaponBullet              //
 //	Input	: fire location x,y     		        	//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public WeaponBullet(int x, int y){
+    public WeaponDefault(){
         movingSpeed = 8;
         damage = 10;
-        this.x = x;
-        this.y = y;
-        logic();
+        range = 600;
+        weaponImage = GameUtil.loadBufferedImage(Constant.WEAPON_BULLET);
+        width = weaponImage.getWidth();
+        height= weaponImage.getHeight();
+        bulletFlyLogic();
     }
 
 //////////////////////////////////////////////////////////
@@ -31,7 +39,18 @@ public class WeaponBullet extends Weapon{
 //	Input	: None              			        	//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public void logic(){
-
+    public void bulletFlyLogic(int x, int y){
+        x+= movingSpeed;
+        paint(Graphics g, x ,y);
     }
+
+//////////////////////////////////////////////////////////
+//	void method to draw bullet image                    //
+//	Input	: Graphics      				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
+    public void paint(Graphics g){
+        g.drawImage(weaponImage,x,y,null );
+    }
+
 }

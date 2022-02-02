@@ -15,24 +15,35 @@ import util.GameUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends AirCraft {
     int playerLocationX=200;
     int playerLocationY=400;
     private boolean up;
     private boolean down;
-
     private boolean left;
     private boolean right;
+    private boolean fire;
     int ultSpellCount;
     int score;
-//    Weapon mainWeapon;
+    Weapon[] mainWeapon;
 //    Weapon autoSupportWeapon
-
-    //player aircraft image
-    private BufferedImage aircraftPlayerImage;
-
+    private BufferedImage aircraftPlayerImage;    //player aircraft image
+    ArrayList<Bullet> bulletList;
+    Graphics g;
     //player status
+
+//////////////////////////////////////////////////////////
+//	Void method to allow player shoot bullet out        //
+//	Input	: None										//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
+public void fire(){
+    if(fire){
+        bulletList.add(new Bullet(mainWeapon[0],playerLocationX,playerLocationY ));
+    }
+}
 
 //////////////////////////////////////////////////////////
 //	Void method to keep player aircraft stay in frame   //
@@ -59,7 +70,7 @@ public class Player extends AirCraft {
 //	Input	: None										//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public void flyLogic(){
+    private void flyLogic(){
         if(up&&!down&&!left&&!right){       //up
             playerLocationY-=super.getMoveSpeed();
             boundaryCheck();
@@ -92,12 +103,12 @@ public class Player extends AirCraft {
     }
 
 //////////////////////////////////////////////////////////
-//	Void method to set the movement directions          //
+//	Void method to set the movement boolean value       //
 //	Input	: moveDirection								//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public void flyControl(int moveDirection){
-        switch(moveDirection){
+    public void flyControl(int movement){
+        switch(movement){
             case 1:
                 up=true;
                 break;
@@ -122,6 +133,12 @@ public class Player extends AirCraft {
             case 8:
                 right=false;
                 break;
+            case 9:
+                fire=true;
+                break;
+            case 10:
+                fire=false;
+                break;
         }
     }
 
@@ -136,9 +153,12 @@ public class Player extends AirCraft {
         down=false;
         left=false;
         right=false;
-        aircraftPlayerImage = GameUtil.loadBufferedImage(Constant.aircraftPlayerDef);
-        super.setFuel(100);     //initial fuel point = 100;
-        super.setMoveSpeed(5);  //default move speed = 5;
+        fire=false;
+        aircraftPlayerImage = GameUtil.loadBufferedImage(Constant.AIRCRAFT_PLAYER_DEFAULT);
+        fuel=100;     //initial fuel point = 100;
+        moveSpeed=5;  //default move speed = 5;
+//        WeaponDefault basicWeapon = new WeaponDefault();
+//        mainWeapon[0] = new WeaponDefault;
     }
 
 
@@ -148,8 +168,12 @@ public class Player extends AirCraft {
 //	Output	: None										//
 //////////////////////////////////////////////////////////
     public void paint(Graphics g){
+        this.g = g;
         flyLogic();
         g.drawImage(aircraftPlayerImage,playerLocationX,playerLocationY,null);
+        for(int i=0; i< bulletList.size();i++){
+            g.drawImage(bulletList.get(i).getWeaponImage(), bulletList.get(i).getX(),bulletList.get(i).getY(),null );
+        }
     }
 
 //////////////////////////////////////////////////////////

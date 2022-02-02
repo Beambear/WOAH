@@ -27,7 +27,7 @@ public class AirCraft {
         return false;
     }
 
-    private int fuel;   //fuel point, similar to health point.
+    int fuel;   //fuel point, similar to health point.
     int moveSpeed;      //aircraft move speed on the screen.
 
     public int getFuel() {

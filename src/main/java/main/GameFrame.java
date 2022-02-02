@@ -158,6 +158,9 @@ public class GameFrame extends Frame {
             case KeyEvent.VK_RIGHT:
                 player.flyControl(4);
                 break;
+            case KeyEvent.VK_D:
+                player.flyControl(9);
+                break;
         }
     }
 
@@ -180,6 +183,8 @@ public class GameFrame extends Frame {
             case KeyEvent.VK_RIGHT:
                 player.flyControl(8);
                 break;
+            case KeyEvent.VK_D:
+                player.flyControl(10);
         }
     }
 
