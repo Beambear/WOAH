@@ -27,10 +27,11 @@ public class Player extends AirCraft {
     private boolean fire;
     int ultSpellCount;
     int score;
-    Weapon[] mainWeapon;
+//    WeaponPlayer[] mainWeapon;
+    Inventory<WeaponPlayer> mainWeaponInventory;
 //    Weapon autoSupportWeapon
     private BufferedImage aircraftPlayerImage;    //player aircraft image
-    ArrayList<Bullet> bulletList;
+    ArrayList<WeaponBullet> bulletList; //store current displayed bullets
     Graphics g;
     //player status
 
@@ -40,9 +41,8 @@ public class Player extends AirCraft {
 //	Output	: None										//
 //////////////////////////////////////////////////////////
 public void fire(){
-    if(fire){
-        bulletList.add(new Bullet(mainWeapon[0],playerLocationX,playerLocationY ));
-    }
+        System.out.println("firing");
+        bulletList.add(new WeaponBullet(mainWeapon[0],playerLocationX,playerLocationY ));
 }
 
 //////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public void fire(){
 //	Input	: None										//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    private void flyLogic(){
+    private void actionLogic(){
         if(up&&!down&&!left&&!right){       //up
             playerLocationY-=super.getMoveSpeed();
             boundaryCheck();
@@ -99,6 +99,10 @@ public void fire(){
             playerLocationX-=super.getMoveSpeed();
             playerLocationY+=super.getMoveSpeed();
             boundaryCheck();
+        }
+
+        if(fire){
+            fire();
         }
     }
 
@@ -135,6 +139,7 @@ public void fire(){
                 break;
             case 9:
                 fire=true;
+                fire();
                 break;
             case 10:
                 fire=false;
@@ -158,7 +163,12 @@ public void fire(){
         fuel=100;     //initial fuel point = 100;
         moveSpeed=5;  //default move speed = 5;
 //        WeaponDefault basicWeapon = new WeaponDefault();
-//        mainWeapon[0] = new WeaponDefault;
+//        mainWeapon = new WeaponPlayer[2];   //can store maximum 2 weapons.
+//        mainWeapon[0] = new WeaponPlayer("player01");
+//        mainWeapon[1] = new WeaponPlayer("player02");
+        mainWeaponInventory = new Inventory<WeaponPlayer>();
+
+        bulletList = new ArrayList<>();
     }
 
 
@@ -169,10 +179,10 @@ public void fire(){
 //////////////////////////////////////////////////////////
     public void paint(Graphics g){
         this.g = g;
-        flyLogic();
-        g.drawImage(aircraftPlayerImage,playerLocationX,playerLocationY,null);
-        for(int i=0; i< bulletList.size();i++){
-            g.drawImage(bulletList.get(i).getWeaponImage(), bulletList.get(i).getX(),bulletList.get(i).getY(),null );
+        actionLogic();
+        g.drawImage(aircraftPlayerImage,playerLocationX,playerLocationY,null); //draw player image
+        for(int i=0;i<bulletList.size();i++){
+            bulletList.get(i).paint(g); //draw bullet image out
         }
     }
 

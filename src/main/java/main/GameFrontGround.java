@@ -47,7 +47,7 @@ public class GameFrontGround {
     }
 
 //////////////////////////////////////////////////////////
-//	void method to draw background image                //
+//	void method to draw frontground image               //
 //	Input	: Graphics      				        	//
 //	Output	: None										//
 //////////////////////////////////////////////////////////

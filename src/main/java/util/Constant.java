@@ -27,5 +27,6 @@ public class Constant {
     public static final String BG_STAGE_CEILING_01_02 = "artResources/environment/background_ceiling_stage_01_2.png";
     public static final String BG_STAGE_CEILING_01_03 = "artResources/environment/background_ceiling_stage_01_3.png";
     public static final String AIRCRAFT_PLAYER_DEFAULT = "artResources/aircraft/player_aircraft_default.gif";
-    public static final String WEAPON_BULLET = "artResources/Weapon/Weapon_01.png";
+    public static final String WEAPON_DEFAULT = "artResources/Weapon/Weapon_01.png";
+    public static final String WEAPON_CURVE = "artResources/Weapon/Weapon_02.png";
 }
