@@ -26,8 +26,8 @@ public class Player extends AirCraft {
     private boolean right;
     int ultSpellCount;
     int score;
-//    WeaponPlayer[] mainWeapon;
-    Inventory<WeaponPlayer> mainWeaponInventory;
+    Inventory<WeaponPlayer> mainWeaponInventory;    //store main weapon
+    Inventory<Item> itemInventory;                  //store items
 //    Weapon autoSupportWeapon
     private BufferedImage aircraftPlayerImage;    //player aircraft image
     ArrayList<WeaponBullet> bulletList; //store current displayed bullets
@@ -39,10 +39,21 @@ public class Player extends AirCraft {
 //	Input	: None										//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-public void fire(){
+    public void useItem(Player player){
+        System.out.println("use item: "+mainWeaponInventory.getInventory(0).getWeaponCode());
+        itemInventory.getInventory(0).useItem(player);
+    }
+
+
+//////////////////////////////////////////////////////////
+//	Void method to allow player shoot bullet out        //
+//	Input	: None										//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
+    public void fire(){
         System.out.println("firing: "+mainWeaponInventory.getInventory(0).getWeaponCode());
         bulletList.add(new WeaponBullet(mainWeaponInventory.getInventory(0), playerLocationX,playerLocationY ));
-}
+    }
 
 //////////////////////////////////////////////////////////
 //	Void method to keep player aircraft stay in frame   //
@@ -103,10 +114,10 @@ public void fire(){
 
 //////////////////////////////////////////////////////////
 //	Void method to set the movement boolean value       //
-//	Input	: moveDirection								//
+//	Input	: movement  								//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public void flyControl(int movement){
+    public void actionControl(int movement){
         switch(movement){
             case 1:
                 up=true;
@@ -139,7 +150,16 @@ public void fire(){
                 mainWeaponInventory.switchItem();
                 break;
             case 11:
+                itemInventory.switchItem();
+                break;
 
+        }
+    }
+    public void actionControl(int movement,Player player){
+        switch(movement){
+            case 12:
+                itemInventory.getInventory(0).useItem(player);
+                break;
         }
     }
 
@@ -159,7 +179,10 @@ public void fire(){
         moveSpeed=10;  //default move speed = 5;
         mainWeaponInventory = new Inventory<WeaponPlayer>();    //initialize main weapon inventory
         mainWeaponInventory.add(new WeaponPlayer("player01"));  //add default weapon
-        mainWeaponInventory.add(new WeaponPlayer("player02"));  //add second weapon
+        mainWeaponInventory.add(new WeaponPlayer("player02"));  //add second weapon //further day, 2nd weapon is picked up during game play
+        itemInventory = new Inventory<Item>();  //initialize item inventory
+        itemInventory.add(new Item("item01"));  //add item 01 //further day, all item is picked up during game play
+        itemInventory.add(new Item("item02"));  //add item 02 //further day, all item is picked up during game play
         bulletList = new ArrayList<>(); //initialize shot bullet list
     }
 
@@ -197,4 +220,20 @@ public void fire(){
         }).start();
     }
 
+
+    public boolean isUp() {
+        return up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
 }

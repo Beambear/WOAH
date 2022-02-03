@@ -49,7 +49,7 @@ public class WeaponPlayer extends Weapon{
 //////////////////////////////////////////////////////////
     public void weaponBasic(){
         weaponCode = "player01";
-        movingSpeed = 8;
+        movingSpeed = 20;
         damage = 10;
         range = 600;
         weaponImage = GameUtil.loadBufferedImage(Constant.WEAPON_DEFAULT);
@@ -64,7 +64,7 @@ public class WeaponPlayer extends Weapon{
 //////////////////////////////////////////////////////////
     public void weaponCurve(){
         weaponCode = "player02";
-        movingSpeed = 10;
+        movingSpeed = 25;
         damage = 15;
         range = 400;
         weaponImage = GameUtil.loadBufferedImage(Constant.WEAPON_CURVE);

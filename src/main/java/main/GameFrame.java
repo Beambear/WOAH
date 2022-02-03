@@ -146,7 +146,7 @@ public class GameFrame extends Frame {
     public void typeKey(KeyEvent e){    //doesn't work.
         switch (e.getKeyCode()){
             case KeyEvent.VK_S:
-                player.flyControl(10);  //switch main weapon
+                player.actionControl(10);  //switch main weapon
                 break;
         }
     }
@@ -160,19 +160,19 @@ public class GameFrame extends Frame {
     public void pressKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-                player.flyControl(1);//moving up
+                player.actionControl(1);//moving up
                 break;
             case KeyEvent.VK_DOWN:
-                player.flyControl(2);//moving down
+                player.actionControl(2);//moving down
                 break;
             case KeyEvent.VK_LEFT:
-                player.flyControl(3);//moving left
+                player.actionControl(3);//moving left
                 break;
             case KeyEvent.VK_RIGHT:
-                player.flyControl(4);//moving right
+                player.actionControl(4);//moving right
                 break;
             case KeyEvent.VK_D:
-                player.flyControl(9);//fire
+                player.actionControl(9);//fire
                 break;
         }
     }
@@ -185,19 +185,25 @@ public class GameFrame extends Frame {
     public void releaseKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-                player.flyControl(5);//stop moving up
+                player.actionControl(5);//stop moving up
                 break;
             case KeyEvent.VK_DOWN:
-                player.flyControl(6);//stop moving down
+                player.actionControl(6);//stop moving down
                 break;
             case KeyEvent.VK_LEFT:
-                player.flyControl(7);//stop moving left
+                player.actionControl(7);//stop moving left
                 break;
             case KeyEvent.VK_RIGHT:
-                player.flyControl(8);//stop moving right
+                player.actionControl(8);//stop moving right
                 break;
             case KeyEvent.VK_S:
-                player.flyControl(10);//switch to next main weapon
+                player.actionControl(10);//switch to next main weapon
+                break;
+            case KeyEvent.VK_W:
+                player.actionControl(11);//switch to next item
+                break;
+            case KeyEvent.VK_E:
+                player.actionControl(12,player);//use current item
                 break;
         }
     }

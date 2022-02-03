@@ -24,7 +24,7 @@ public class GameUtil {
         new Thread(() -> {
             while (true) {
                 try {
-                    // 每隔3秒执行一次
+                    //run every 10 seconds
                     Thread.sleep(10000);
                     GameUtil.save(player);
                 } catch (InterruptedException e) {
