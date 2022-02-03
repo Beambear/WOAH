@@ -24,7 +24,6 @@ public class Player extends AirCraft {
     private boolean down;
     private boolean left;
     private boolean right;
-    private boolean fire;
     int ultSpellCount;
     int score;
 //    WeaponPlayer[] mainWeapon;
@@ -41,8 +40,8 @@ public class Player extends AirCraft {
 //	Output	: None										//
 //////////////////////////////////////////////////////////
 public void fire(){
-        System.out.println("firing");
-        bulletList.add(new WeaponBullet(mainWeapon[0],playerLocationX,playerLocationY ));
+        System.out.println("firing: "+mainWeaponInventory.getInventory(0).getWeaponCode());
+        bulletList.add(new WeaponBullet(mainWeaponInventory.getInventory(0), playerLocationX,playerLocationY ));
 }
 
 //////////////////////////////////////////////////////////
@@ -100,10 +99,6 @@ public void fire(){
             playerLocationY+=super.getMoveSpeed();
             boundaryCheck();
         }
-
-        if(fire){
-            fire();
-        }
     }
 
 //////////////////////////////////////////////////////////
@@ -138,12 +133,13 @@ public void fire(){
                 right=false;
                 break;
             case 9:
-                fire=true;
                 fire();
                 break;
             case 10:
-                fire=false;
+                mainWeaponInventory.switchItem();
                 break;
+            case 11:
+
         }
     }
 
@@ -158,17 +154,13 @@ public void fire(){
         down=false;
         left=false;
         right=false;
-        fire=false;
         aircraftPlayerImage = GameUtil.loadBufferedImage(Constant.AIRCRAFT_PLAYER_DEFAULT);
         fuel=100;     //initial fuel point = 100;
-        moveSpeed=5;  //default move speed = 5;
-//        WeaponDefault basicWeapon = new WeaponDefault();
-//        mainWeapon = new WeaponPlayer[2];   //can store maximum 2 weapons.
-//        mainWeapon[0] = new WeaponPlayer("player01");
-//        mainWeapon[1] = new WeaponPlayer("player02");
-        mainWeaponInventory = new Inventory<WeaponPlayer>();
-
-        bulletList = new ArrayList<>();
+        moveSpeed=10;  //default move speed = 5;
+        mainWeaponInventory = new Inventory<WeaponPlayer>();    //initialize main weapon inventory
+        mainWeaponInventory.add(new WeaponPlayer("player01"));  //add default weapon
+        mainWeaponInventory.add(new WeaponPlayer("player02"));  //add second weapon
+        bulletList = new ArrayList<>(); //initialize shot bullet list
     }
 
 

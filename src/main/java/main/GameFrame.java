@@ -68,12 +68,11 @@ public class GameFrame extends Frame {
         //input key listener
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {typeKey(e);}
             @Override
             public void keyPressed(KeyEvent e) {
                 pressKey(e);
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
                 releaseKey(e);
@@ -140,6 +139,20 @@ public class GameFrame extends Frame {
     }
 
 //////////////////////////////////////////////////////////
+//	void method to set reactions for the typed Key      //
+//	Input	: KeyEvent 									//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
+    public void typeKey(KeyEvent e){    //doesn't work.
+        switch (e.getKeyCode()){
+            case KeyEvent.VK_S:
+                player.flyControl(10);  //switch main weapon
+                break;
+        }
+    }
+
+
+//////////////////////////////////////////////////////////
 //	void method to set reactions for the pressed Key    //
 //	Input	: KeyEvent 									//
 //	Output	: None										//
@@ -147,19 +160,19 @@ public class GameFrame extends Frame {
     public void pressKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-                player.flyControl(1);
+                player.flyControl(1);//moving up
                 break;
             case KeyEvent.VK_DOWN:
-                player.flyControl(2);
+                player.flyControl(2);//moving down
                 break;
             case KeyEvent.VK_LEFT:
-                player.flyControl(3);
+                player.flyControl(3);//moving left
                 break;
             case KeyEvent.VK_RIGHT:
-                player.flyControl(4);
+                player.flyControl(4);//moving right
                 break;
             case KeyEvent.VK_D:
-                player.flyControl(9);
+                player.flyControl(9);//fire
                 break;
         }
     }
@@ -172,19 +185,20 @@ public class GameFrame extends Frame {
     public void releaseKey(KeyEvent e){
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP :
-                player.flyControl(5);
+                player.flyControl(5);//stop moving up
                 break;
             case KeyEvent.VK_DOWN:
-                player.flyControl(6);
+                player.flyControl(6);//stop moving down
                 break;
             case KeyEvent.VK_LEFT:
-                player.flyControl(7);
+                player.flyControl(7);//stop moving left
                 break;
             case KeyEvent.VK_RIGHT:
-                player.flyControl(8);
+                player.flyControl(8);//stop moving right
                 break;
-            case KeyEvent.VK_D:
-                player.flyControl(10);
+            case KeyEvent.VK_S:
+                player.flyControl(10);//switch to next main weapon
+                break;
         }
     }
 
