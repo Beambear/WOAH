@@ -30,13 +30,30 @@ public class Inventory<T> {
     public void setInventory(int index,T item) {
         this.inventory.set(index,item);
     }
-
+//////////////////////////////////////////////////////////
+//	Constructor to initialize the inventory array list  //
+//	Input	: None          				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public Inventory(){
         inventory = new ArrayList<T>();
     }
+
+//////////////////////////////////////////////////////////
+//	void method to add new item into inventory          //
+//	Input	: T          				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void add(T item){
         inventory.add(item);
     }
+
+//////////////////////////////////////////////////////////
+//	switch the position of item in inventory            //
+//	the [0] moves to tail and the reset move to [i-1]   //
+//	Input	: None          				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public void switchItem(){
         T currItem = inventory.get(0);
         for(int i=0;i<inventory.size()-1;i++){

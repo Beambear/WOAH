@@ -42,9 +42,11 @@ public class GameApp {
             switch(option)
             {
                 case "1":
+                    System.out.println("-> new game");
                     new GameFrame("new");
                     break;
                 case "2":
+                    System.out.println("-> load game");
                     new GameFrame("load");
                     break;
                 case "3":
