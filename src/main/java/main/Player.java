@@ -147,17 +147,19 @@ public class Player extends AirCraft {
                 fire();
                 break;
             case 10:
+                System.out.println("main weapon: "+mainWeaponInventory.getInventory(0).getWeaponCode()+" -> "+mainWeaponInventory.getInventory(1).getWeaponCode());
                 mainWeaponInventory.switchItem();
                 break;
             case 11:
+                System.out.println("item: "+itemInventory.getInventory(0).getItemCode()+" -> "+itemInventory.getInventory(1).getItemCode());
                 itemInventory.switchItem();
                 break;
-
         }
     }
     public void actionControl(int movement,Player player){
         switch(movement){
             case 12:
+                System.out.println("use item: "+itemInventory.getInventory(0).getItemCode());
                 itemInventory.getInventory(0).useItem(player);
                 break;
         }
@@ -212,7 +214,7 @@ public class Player extends AirCraft {
                 try {
                     Thread.sleep(3000); //every 3 seconds
                     super.setFuel(super.getFuel()-1);
-                    System.out.println("Current fuel: "+super.getFuel());
+                    System.out.println("fuel: "+(super.getFuel()+1)+" -> "+super.getFuel());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

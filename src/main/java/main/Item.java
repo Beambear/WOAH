@@ -12,6 +12,10 @@ package main;
 //      Contains working logic methods and getters and setters.
 //
 public class Item {
+    public String getItemCode() {
+        return itemCode;
+    }
+
     String itemCode;
     public Item(){};
 //////////////////////////////////////////////////////////
@@ -50,6 +54,7 @@ public class Item {
 //////////////////////////////////////////////////////////
     private void speedUp(Player player){
         player.setMoveSpeed(player.getMoveSpeed()+5);
+        System.out.println("player_move_speed: "+(player.getMoveSpeed()-5)+" -> "+player.getMoveSpeed());
         new Thread(() -> {
             try {
                 Thread.sleep(5000); //decrease speed to normal in 5 seconds.

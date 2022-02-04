@@ -47,7 +47,6 @@ public class GameUtil {
         try {
             FileOutputStream fop = new FileOutputStream(userFile);		//initialize fop
             OutputStreamWriter writer = new OutputStreamWriter(fop);	//initializeriter
-            System.out.println("saving current fuel: "+player.getFuel());
             writer.append(player.getFuel()+" ");	//save fuel status
             writer.close();
             fop.close();

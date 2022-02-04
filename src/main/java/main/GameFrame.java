@@ -197,12 +197,15 @@ public class GameFrame extends Frame {
                 player.actionControl(8);//stop moving right
                 break;
             case KeyEvent.VK_S:
+                System.out.println("Keyboard S is released");
                 player.actionControl(10);//switch to next main weapon
                 break;
             case KeyEvent.VK_W:
+                System.out.println("Keyboard W is released");
                 player.actionControl(11);//switch to next item
                 break;
             case KeyEvent.VK_E:
+                System.out.println("Keyboard E is released");
                 player.actionControl(12,player);//use current item
                 break;
         }
