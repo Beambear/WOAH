@@ -10,6 +10,9 @@ public class Constant {
     //window title
     public static final String FRAM_TITLE=" WOAH!_ver0.1    by Jipeng Liu";
 
+    //saved data path
+    public static final String SAVED_FILE_PATH=("User_Saved_Data.dat");
+
     //window initial location
     public static final int FRAM_X=200;
     public static final int FRAM_Y=200;

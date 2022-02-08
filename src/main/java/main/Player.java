@@ -7,7 +7,7 @@ package main;
 // 	Description:
 //		This class is an object class.
 //      Player is a child class of Aircraft
-//      Contains 10 attributes
+//      Contains 11 attributes
 //      Contains methods for player control system and abilities.
 //
 import util.Constant;
@@ -15,9 +15,12 @@ import util.GameUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player extends AirCraft {
+public class Player extends AirCraft implements Serializable {
+
+    String playerName;
     int playerLocationX=200;
     int playerLocationY=400;
     private boolean up;
@@ -29,7 +32,6 @@ public class Player extends AirCraft {
     Inventory<WeaponPlayer> mainWeaponInventory;    //store main weapon
     Inventory<Item> itemInventory;                  //store items
 //    Weapon autoSupportWeapon
-    private BufferedImage aircraftPlayerImage;    //player aircraft image
     ArrayList<WeaponBullet> bulletList; //store current displayed bullets
     Graphics g;
     //player status
@@ -176,7 +178,6 @@ public class Player extends AirCraft {
         down=false;
         left=false;
         right=false;
-        aircraftPlayerImage = GameUtil.loadBufferedImage(Constant.AIRCRAFT_PLAYER_DEFAULT);
         fuel=100;     //initial fuel point = 100;
         moveSpeed=10;  //default move speed = 5;
         mainWeaponInventory = new Inventory<WeaponPlayer>();    //initialize main weapon inventory
@@ -197,7 +198,7 @@ public class Player extends AirCraft {
     public void paint(Graphics g){
         this.g = g;
         actionLogic();
-        g.drawImage(aircraftPlayerImage,playerLocationX,playerLocationY,null); //draw player image
+        g.drawImage(GameUtil.loadBufferedImage(Constant.AIRCRAFT_PLAYER_DEFAULT),playerLocationX,playerLocationY,null); //draw player image
         for(int i=0;i<bulletList.size();i++){
             bulletList.get(i).paint(g); //draw bullet image out
         }
@@ -238,4 +239,61 @@ public class Player extends AirCraft {
     public boolean isRight() {
         return right;
     }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public int getPlayerLocationX() {
+        return playerLocationX;
+    }
+
+    public void setPlayerLocationX(int playerLocationX) {
+        this.playerLocationX = playerLocationX;
+    }
+
+    public int getPlayerLocationY() {
+        return playerLocationY;
+    }
+
+    public void setPlayerLocationY(int playerLocationY) {
+        this.playerLocationY = playerLocationY;
+    }
+
+    public int getUltSpellCount() {
+        return ultSpellCount;
+    }
+
+    public void setUltSpellCount(int ultSpellCount) {
+        this.ultSpellCount = ultSpellCount;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public Inventory<WeaponPlayer> getMainWeaponInventory() {
+        return mainWeaponInventory;
+    }
+
+    public void setMainWeaponInventory(Inventory<WeaponPlayer> mainWeaponInventory) {
+        this.mainWeaponInventory = mainWeaponInventory;
+    }
+
+    public Inventory<Item> getItemInventory() {
+        return itemInventory;
+    }
+
+    public void setItemInventory(Inventory<Item> itemInventory) {
+        this.itemInventory = itemInventory;
+    }
+
 }

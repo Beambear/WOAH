@@ -29,7 +29,7 @@ import java.awt.image.BufferedImage;
 public class GameFrame extends Frame {
 
     private GameBackGround gameBackGround;
-    private Player player;
+    private Player player = GameUtil.loadGame();
     private GameFrontGround gameFrontGround;
 
 
