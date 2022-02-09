@@ -58,26 +58,23 @@ public class GameUtil {
         }
     }
 
-    public static Player loadGame(){
-        Player playerLoad = new Player();
-//        String filePath = ("user_saved_Data.txt");
+    public static SavedData loadGame(){
+        SavedData dataLoad = new SavedData();
         Path myPath = Paths.get(Constant.SAVED_FILE_PATH);
         try {
-//            String dataRead = Files.readString(myPath);	//read data from file path
-//            userData = dataRead.split(" ");
             ObjectInputStream infile = new ObjectInputStream(new FileInputStream(Constant.SAVED_FILE_PATH));
-            playerLoad = (Player) infile.readObject();//////////////////////////////////////////////////
+            dataLoad = (SavedData) infile.readObject();
         } catch (IOException | ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-//        playerLoad.setFuel(Integer.parseInt(userData[0]));
-        return playerLoad;
+        return dataLoad;
         }
 
-        public static class SavedData{
-        public  SavedData(){}
+        public static class SavedData implements Serializable{
+            public  SavedData(){}
             String playerName;
+            int fuel;
             int scores;
             int playerLocationX;
             int playerLocationY;
@@ -86,14 +83,44 @@ public class GameUtil {
             public  SavedData(Player player){
                 this.playerName=player.getPlayerName();
                 this.scores = player.getScore();
+                this.fuel = player.getFuel();
                 this.playerLocationX = player.getPlayerLocationX();
                 this.playerLocationY = player.getPlayerLocationY();
+                this.mainWeaponInventoryCodes = new ArrayList<String>();
+                this.itemInventoryCodes = new ArrayList<String>();
                 for(int i=0; i< player.getMainWeaponInventory().getInventory().size();i ++){
                     this.mainWeaponInventoryCodes.add(player.getMainWeaponInventory().getInventory(i).getWeaponCode());
                 }
                 for(int i=0; i< player.getItemInventory().getInventory().size();i ++){
                     this.itemInventoryCodes.add(player.getItemInventory().getInventory(i).getItemCode());
                 }
+            }
+            public String getPlayerName() {
+                return playerName;
+            }
+
+            public int getFuel() {
+                return fuel;
+            }
+
+            public int getScores() {
+                return scores;
+            }
+
+            public int getPlayerLocationX() {
+                return playerLocationX;
+            }
+
+            public int getPlayerLocationY() {
+                return playerLocationY;
+            }
+
+            public ArrayList<String> getMainWeaponInventoryCodes() {
+                return mainWeaponInventoryCodes;
+            }
+
+            public ArrayList<String> getItemInventoryCodes() {
+                return itemInventoryCodes;
             }
         }
     }

@@ -24,13 +24,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 
 public class GameFrame extends Frame {
 
     private GameBackGround gameBackGround;
-    private Player player = GameUtil.loadGame();
+    private Player player;
     private GameFrontGround gameFrontGround;
+    private GameUtil.SavedData loadData;
 
 
 //////////////////////////////////////////////////////////
@@ -97,8 +99,9 @@ public class GameFrame extends Frame {
 //	Output	: None										//
 //////////////////////////////////////////////////////////
     public void loadGame(){
+        loadData = GameUtil.loadGame();
         gameBackGround = new GameBackGround();
-        player = GameUtil.loadGame();
+        player = new Player(loadData);
         gameFrontGround = new GameFrontGround();
     }
 

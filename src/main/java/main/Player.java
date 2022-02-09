@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player extends AirCraft implements Serializable {
+public class Player extends AirCraft {
 
     String playerName;
     int playerLocationX=200;
@@ -186,6 +186,31 @@ public class Player extends AirCraft implements Serializable {
         itemInventory = new Inventory<Item>();  //initialize item inventory
         itemInventory.add(new Item("item01"));  //add item 01 //further day, all item is picked up during game play
         itemInventory.add(new Item("item02"));  //add item 02 //further day, all item is picked up during game play
+        bulletList = new ArrayList<>(); //initialize shot bullet list
+    }
+
+    public Player(GameUtil.SavedData loadData){
+        up=false;
+        down=false;
+        left=false;
+        right=false;
+        playerName= loadData.getPlayerName();
+        score = loadData.getScores();
+        fuel = loadData.getFuel();
+        moveSpeed = 10;
+        playerLocationX=loadData.getPlayerLocationX();
+        playerLocationY= loadData.getPlayerLocationY();
+        ArrayList<String> weaponsCode = loadData.getMainWeaponInventoryCodes();
+        mainWeaponInventory = new Inventory<WeaponPlayer>();    //initialize main weapon inventory
+        for(int i=0; i< weaponsCode.size(); i++){
+            mainWeaponInventory.add(new WeaponPlayer(weaponsCode.get(i)));
+        }
+        ArrayList<String> itemsCode = loadData.getItemInventoryCodes();
+        itemInventory = new Inventory<Item>();
+        for(int i=0; i< itemsCode.size();i++ )
+        {
+            itemInventory.add(new Item(itemsCode.get(i)));
+        }
         bulletList = new ArrayList<>(); //initialize shot bullet list
     }
 
