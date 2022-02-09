@@ -189,6 +189,12 @@ public class Player extends AirCraft {
         bulletList = new ArrayList<>(); //initialize shot bullet list
     }
 
+
+//////////////////////////////////////////////////////////
+//	Constructor to load saved player data               //
+//	Input	: SavedData     				        	//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public Player(GameUtil.SavedData loadData){
         up=false;
         down=false;
@@ -200,17 +206,10 @@ public class Player extends AirCraft {
         moveSpeed = 10;
         playerLocationX=loadData.getPlayerLocationX();
         playerLocationY= loadData.getPlayerLocationY();
-        ArrayList<String> weaponsCode = loadData.getMainWeaponInventoryCodes();
         mainWeaponInventory = new Inventory<WeaponPlayer>();    //initialize main weapon inventory
-        for(int i=0; i< weaponsCode.size(); i++){
-            mainWeaponInventory.add(new WeaponPlayer(weaponsCode.get(i)));
-        }
-        ArrayList<String> itemsCode = loadData.getItemInventoryCodes();
+        loadData.getMainWeaponInventoryCodes().stream().forEach(s->mainWeaponInventory.add(new WeaponPlayer(s)));//add loaded weapon into inventory.
         itemInventory = new Inventory<Item>();
-        for(int i=0; i< itemsCode.size();i++ )
-        {
-            itemInventory.add(new Item(itemsCode.get(i)));
-        }
+        loadData.getItemInventoryCodes().stream().forEach(s->itemInventory.add(new Item(s)));
         bulletList = new ArrayList<>(); //initialize shot bullet list
     }
 

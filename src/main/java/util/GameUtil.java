@@ -1,4 +1,14 @@
 package util;
+//------------------------------------------------------------------------
+//	Author: Jipeng Liu
+//
+//
+// 	Class: GameUtil
+// 	Description:
+//		This class contains some function methods for this game.
+//      1. load buffered image
+//      2. game save & load functions
+//
 import main.Player;
 import main.Weapon;
 
@@ -12,7 +22,11 @@ import java.util.ArrayList;
 
 public class GameUtil {
 
-    //load image
+//////////////////////////////////////////////////////////
+//	method used to load and return buffered image   	//
+//	Input	: String image Path     					//
+//	Output	: BufferedImage 							//
+//////////////////////////////////////////////////////////
     public static BufferedImage loadBufferedImage(String imagePath){
         try{
             return ImageIO.read(new FileInputStream(imagePath));
@@ -22,6 +36,12 @@ public class GameUtil {
         return  null;
     }
 
+
+//////////////////////////////////////////////////////////
+//	game auto save function, implement save() every 10s //
+//	Input	: Player                 					//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     //Game auto save
     public static void autoSave(Player player){
         new Thread(() -> {
@@ -36,10 +56,15 @@ public class GameUtil {
             }
         }).start();
     }
-    //save
+
+
+//////////////////////////////////////////////////////////
+//	output important game information as dat            //
+//	Input	: Player                 					//
+//	Output	: None										//
+//////////////////////////////////////////////////////////
     public static void save(Player player) {
         System.out.println("Saving...");
-//        String filePath=(Constant.SAVED_FILE_PATH);			//set file path
         File userFile = new File(Constant.SAVED_FILE_PATH);								//set file
         try {
             userFile.createNewFile();									//create new file
@@ -49,18 +74,20 @@ public class GameUtil {
         }
         try {
             ObjectOutputStream outfile = new ObjectOutputStream(new FileOutputStream(userFile));		//initialize fop
-            // writer.append(player.getFuel()+" ");	//save fuel status
             outfile.writeObject(new SavedData(player));
-//            writer.close();
             outfile.close();
         }catch(IOException e) {
             e.printStackTrace();
         }
     }
 
+//////////////////////////////////////////////////////////
+//	input important game information from dat           //
+//	Input	:                       					//
+//	Output	: SavedData									//
+//////////////////////////////////////////////////////////
     public static SavedData loadGame(){
         SavedData dataLoad = new SavedData();
-        Path myPath = Paths.get(Constant.SAVED_FILE_PATH);
         try {
             ObjectInputStream infile = new ObjectInputStream(new FileInputStream(Constant.SAVED_FILE_PATH));
             dataLoad = (SavedData) infile.readObject();
@@ -71,6 +98,15 @@ public class GameUtil {
         return dataLoad;
         }
 
+
+    //------------------------------------------------------------------------
+    //	Author: Jipeng Liu
+    //
+    //
+    // 	Class: SavedData
+    // 	Description:
+    //		Object class, contains attribute to store important game information
+    //
         public static class SavedData implements Serializable{
             public  SavedData(){}
             String playerName;
@@ -80,6 +116,13 @@ public class GameUtil {
             int playerLocationY;
             ArrayList<String> mainWeaponInventoryCodes;
             ArrayList<String> itemInventoryCodes;
+
+//////////////////////////////////////////////////////////
+//	Constructor, read the attribute from Player         //
+//        to set this.attributes                        //
+//	Input	: Player                   					//
+//	Output	: None  									//
+//////////////////////////////////////////////////////////
             public  SavedData(Player player){
                 this.playerName=player.getPlayerName();
                 this.scores = player.getScore();

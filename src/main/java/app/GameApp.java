@@ -19,6 +19,8 @@ import java.util.Scanner;
 //////////////////////////////////////////////////////////
 public class GameApp {
     public static void main(String[] args){
+//        Test test = new Test();
+//        test.streamTest();
         GameApp drive = new GameApp();
         drive.menu();
     }
