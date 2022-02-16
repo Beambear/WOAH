@@ -10,9 +10,6 @@ package main;
 //      Contains the bullet fly logic methods & paint method
 //      Contains 7 attributes
 //
-import util.Constant;
-import util.GameUtil;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
