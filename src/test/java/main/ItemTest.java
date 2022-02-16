@@ -10,7 +10,7 @@ public class ItemTest {
     Player player;
     @Before
     public void before(){
-        item = new Item();
+        item = new Item("item01");
         player = new Player();
     }
 
