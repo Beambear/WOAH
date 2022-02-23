@@ -3,8 +3,6 @@ package main;
 import util.Constant;
 import util.GameUtil;
 
-import java.awt.*;
-
 //------------------------------------------------------------------------
 //	Author: Jipeng Liu
 //
@@ -82,14 +80,5 @@ public class WeaponPlayer extends Weapon{
     public void basicFlyLogic(int x, int y){
         x+= movingSpeed;
     }
-//
-////////////////////////////////////////////////////////////
-////	void method to draw bullet image                    //
-////	Input	: Graphics      				        	//
-////	Output	: None										//
-////////////////////////////////////////////////////////////
-//    public void paint(Graphics g){
-////        g.drawImage(weaponImage,x,y,null );
-//    }
 
 }

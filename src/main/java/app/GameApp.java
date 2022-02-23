@@ -36,6 +36,7 @@ public class GameApp {
 //////////////////////////////////////////////////////////
     public void menu() {
         System.out.println("Welcome to <World of Aircraft Half-life!>");
+        while(true){
 
             System.out.println("What you want to do:");
             System.out.println("(1)start new game \n(2)load	\n(3)Exit");
@@ -58,6 +59,7 @@ public class GameApp {
                     System.out.println("invalid input, please try again.");
                     break;
             }
+        }
     }
 }
 

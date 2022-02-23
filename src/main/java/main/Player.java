@@ -14,8 +14,6 @@ import util.Constant;
 import util.GameUtil;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Player extends AirCraft {
