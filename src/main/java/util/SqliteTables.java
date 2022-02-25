@@ -14,14 +14,10 @@ import java.sql.*;
 
 public class SqliteTables {
 
-    //////////////////////////////////////////////////////////
-//	A void method, this will initial a menu in console  //
-//  before starting the game. Player can choose         //
-//  1.start new game                                    //
-//  2.load saved game                                   //
-//  3.Exit                                              //
+//////////////////////////////////////////////////////////
+//	A method to build the connection with Database      //
 //	Input	: None										//
-//	Output	: None										//
+//	Output	: Connection								//
 //////////////////////////////////////////////////////////
     public Connection connectDB(){
         Connection c = null;
@@ -36,6 +32,13 @@ public class SqliteTables {
         return c;
     }
 
+    //////////////////////////////////////////////////////////
+    //	void method to create database tables               //
+    //  1.Accounts table contains ID,ACCOUNT,PASSWORD       //
+    //  2.Scoreboard table contains ID,ACCOUNT,SCORES       //
+    //	Input	: None										//
+    //	Output	: None      								//
+    //////////////////////////////////////////////////////////
     public void createTables() throws SQLException {
         Connection c = connectDB();
         Statement accountsStatement = c.createStatement();
@@ -59,6 +62,11 @@ public class SqliteTables {
 
     }
 
+    //////////////////////////////////////////////////////////
+    //	void method to insert new account info to database  //
+    //  Input	: None										//
+    //	Output	: None      								//
+    //////////////////////////////////////////////////////////
     public void insertAccount(String username, String password) throws SQLException{
         Connection c = connectDB();
         String insert = "INSERT INTO ACCOUNTS (ACCOUNT,PASSWORD)"
@@ -68,18 +76,104 @@ public class SqliteTables {
         accountsStatement.setString(2,password);
         accountsStatement.executeUpdate();
         c.close();
+        insertScore(username,0);
         System.out.println("new account created");
     }
 
-    public void insertScore(String username, int score) throws SQLException{
+    //////////////////////////////////////////////////////////
+    //	void method to insert new score info to database    //
+    //  Input	: None										//
+    //	Output	: None      								//
+    //////////////////////////////////////////////////////////
+    public void insertScore(String username, int score){
         Connection c = connectDB();
         String insert = "INSERT INTO SCOREBOARD (ACCOUNT,SCORE)"
                 + "VALUES (?, ?);";
-        PreparedStatement accountsStatement = c.prepareStatement(insert);
-        accountsStatement.setString(1,username);
-        accountsStatement.setInt(2,score);
-        accountsStatement.executeUpdate();
-        c.close();
+        try {
+            PreparedStatement accountsStatement = null;
+            accountsStatement = c.prepareStatement(insert);
+            accountsStatement.setString(1,username);
+            accountsStatement.setInt(2,score);
+            accountsStatement.executeUpdate();
+            c.close();
+        } catch (SQLException e) {
+            updateScore(username,score);
+        }
         System.out.println("Scoreboard updated");
+    }
+
+    //////////////////////////////////////////////////////////
+    //	void method to update new score info to database    //
+    //  Input	: None										//
+    //	Output	: None      								//
+    //////////////////////////////////////////////////////////
+    public void updateScore(String username, int score){
+        Connection c = connectDB();
+        String update = "UPDATE SCOREBOARD"
+                + " set SCORE = "+score
+                + " where ACCOUNT = '" +username+"';";
+        try {
+            Statement updateStatement = c.createStatement();
+            updateStatement.executeUpdate(update);
+            c.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //////////////////////////////////////////////////////////
+    //	user login, check username & password               //
+    //  Input	: Username, password						//
+    //	Output	: None      								//
+    //////////////////////////////////////////////////////////
+    public boolean login(String username, String password) throws SQLException{
+        Connection c = connectDB();
+        String query = "SELECT * FROM ACCOUNTS;";
+        Statement queryStatement = c.createStatement();
+        ResultSet result = queryStatement.executeQuery(query);
+        boolean hasAccount = false;
+        boolean login = false;
+        while( result.next()){
+            String usernameDB = result.getString("ACCOUNT");
+            String passwordDB = result.getString("PASSWORD");
+            if(usernameDB.equals(username) && passwordDB.equals(password))
+            {
+                hasAccount = true;
+                login = true;
+                System.out.println("Hello "+usernameDB);
+                break;
+            }
+            if(usernameDB.equals(username) && !passwordDB.equals(password)){
+                hasAccount = true;
+                System.out.println("Wrong password");
+                break;
+            }
+        }
+        if(hasAccount == false){
+            System.out.println("account not exists");
+        }
+        return login;
+    }
+
+    //////////////////////////////////////////////////////////
+    //	Find user info (account,password,score) based on ID //
+    //  Input	: ID                						//
+    //	Output	: None      								//
+    //////////////////////////////////////////////////////////
+    public String checkUserInfo(int userID){
+        Connection c = connectDB();
+        String printResult = null;
+        String check = "SELECT ACCOUNTS.ID, ACCOUNTS.ACCOUNT, SCOREBOARD.SCORE FROM ACCOUNTS " +
+                "INNER JOIN SCOREBOARD " +
+                "WHERE ACCOUNTS.ID = "+userID+" AND SCOREBOARD.ID = "+userID+";";
+        try {
+            Statement checkStatement = c.createStatement();
+            ResultSet result = checkStatement.executeQuery(check);
+            printResult = "info check for ID:("+userID+")\nID: "+result.getString("ID")+"\nAccount:"+result.getString("ACCOUNT")+"\nScore:"+result.getInt("SCORE");
+            System.out.println(printResult);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return printResult;
     }
 }

@@ -45,11 +45,14 @@ public class Test {
             System.out.println("Account already exists");
         }
 
+        test.insertScore("test1234",2);
+
+
         try {
-            test.insertScore("test1234",5);
+            test.login("test1234","test1234");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Score update failed");
         }
+        test.checkUserInfo(1);
     }
 }
