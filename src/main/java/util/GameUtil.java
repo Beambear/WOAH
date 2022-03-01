@@ -65,7 +65,7 @@ public class GameUtil {
 //////////////////////////////////////////////////////////
     public static void save(Player player) {
         System.out.println("Saving...");
-        File userFile = new File(Constant.SAVED_FILE_PATH);								//set file
+        File userFile = new File(player.getPlayerName()+Constant.SAVED_FILE_PATH);			//set file
         try {
             userFile.createNewFile();									//create new file
         } catch (IOException e1) {
@@ -86,10 +86,10 @@ public class GameUtil {
 //	Input	:                       					//
 //	Output	: SavedData									//
 //////////////////////////////////////////////////////////
-    public static SavedData loadGame(){
+    public static SavedData loadGame(String username){
         SavedData dataLoad = new SavedData();
         try {
-            ObjectInputStream infile = new ObjectInputStream(new FileInputStream(Constant.SAVED_FILE_PATH));
+            ObjectInputStream infile = new ObjectInputStream(new FileInputStream(username+Constant.SAVED_FILE_PATH));
             dataLoad = (SavedData) infile.readObject();
         } catch (IOException | ClassNotFoundException e) {
             // TODO Auto-generated catch block

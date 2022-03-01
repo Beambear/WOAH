@@ -4,14 +4,20 @@ import java.awt.*;
 
 public class Constant {
     //window size
-    public static final int FRAM_WIDTH=1280;
-    public static final int FRAM_HEIGHT=720;
+    public static final int FRAM_WIDTH_DEFAULT=1280;
+    public static final int FRAM_HEIGHT_DEFAULT=720;
+    public static final int FRAM_WIDTH=0;
+    public static final int FRAM_HEIGHT=0;
+    public void setFramSize(String username){
+        SqliteTables database = new SqliteTables();
+//        database.
+    }
 
     //window title
     public static final String FRAM_TITLE=" WOAH!_ver0.1    by Jipeng Liu";
 
     //saved data path
-    public static final String SAVED_FILE_PATH=("User_Saved_Data.dat");
+    public static final String SAVED_FILE_PATH=("_Saved_Data.dat");
 
     //window initial location
     public static final int FRAM_X=200;
