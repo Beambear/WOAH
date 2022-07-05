@@ -1,2 +1,4 @@
-package examTep;public class FlyItem {
+package examTep;
+
+public class FlyItem {
 }

@@ -39,7 +39,7 @@ public class GameFrame extends Frame {
 //	Input	: isLoad									//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public GameFrame(String isLoad){
+    public GameFrame(String username, String isLoad){
         //window visibility
         setVisible(true);
         //window size
@@ -59,9 +59,9 @@ public class GameFrame extends Frame {
         });
 
         switch(isLoad){
-            case "new": initGame();
+            case "new": initGame(username);
             break;
-            case "load": loadGame();
+            case "load": loadGame(username);
         }
 
         new run().start();
@@ -86,9 +86,10 @@ public class GameFrame extends Frame {
 //	Input	: None  									//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public void initGame(){
+    public void initGame(String username){
         gameBackGround = new GameBackGround();
         player = new Player();
+        player.setPlayerName(username);
         gameFrontGround = new GameFrontGround();
     }
 
@@ -97,8 +98,10 @@ public class GameFrame extends Frame {
 //	Input	: None  									//
 //	Output	: None										//
 //////////////////////////////////////////////////////////
-    public void loadGame(){
-        loadData = GameUtil.loadGame();
+    public void loadGame(String username){
+        System.out.println("loading...");
+        loadData = GameUtil.loadGame(username);
+        System.out.println("starting for "+ loadData.getPlayerName()+"...");
         gameBackGround = new GameBackGround();
         player = new Player(loadData);
         gameFrontGround = new GameFrontGround();
